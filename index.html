@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Análise de Saúde Articular</title>
+  <meta name="description" content="Descubra a saúde das suas articulações em menos de 2 minutos com nossa avaliação personalizada." />
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Transição suave entre passos */
+    .step-content {
+      transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+    }
+    .step-enter {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    .step-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Pulsar suave para botões chamativos */
+    @keyframes pulse-subtle {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.015); }
+    }
+    .animate-pulse-subtle {
+      animation: pulse-subtle 2.5s infinite;
+    }
+  </style>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    // Inicialização do Pixel com ID informado
+    const PIXEL_ID = '1327910258914105';
+    fbq('init', PIXEL_ID);
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1327910258914105&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+
+<body class="font-sans antialiased text-slate-800 bg-slate-50 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+  <!-- TOP HEADER CLEAN -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100 shadow-xs">
+    <div class="max-w-xl mx-auto px-4 py-2.5 flex items-center justify-end">
+      <span id="stepCounterText" class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
+        Passo 1 de 15
+      </span>
+    </div>
+    
+    <!-- Barra de Progresso Superior -->
+    <div class="w-full bg-slate-100 h-1.5 overflow-hidden">
+      <div id="progressBar" class="bg-indigo-600 h-full w-[6%] transition-all duration-500 ease-out"></div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main id="mainContainer" class="flex-grow flex items-center justify-center px-4 pt-3 sm:pt-6 pb-6 sm:pb-10">
+    <div id="quizWrapper" class="w-full max-w-lg mx-auto">
+
+      <!-- HEADLINE E SUBTITULO FORA DO BLOCO (PARA O PASSO 15) -->
+      <div id="stepOuterHeader" class="mb-6 sm:mb-8 text-center hidden px-2 sm:px-4"></div>
+
+      <!-- STEP CONTAINER (Dinamicamente renderizado por JS) -->
+      <div id="quizContainer" class="bg-white rounded-2xl p-5 sm:p-7 shadow-sm border border-slate-200/80 min-h-[360px] flex flex-col justify-between step-content step-active">
+        <!-- O conteúdo será injetado pelo JavaScript -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- TERMOS DE USO E PRIVACIDADE (VISÍVEL APENAS NA PRIMEIRA PÁGINA) -->
+  <footer id="quizFooter" class="w-full py-4 px-4 border-t border-slate-200/50 bg-white/40 mt-auto">
+    <div class="max-w-2xl mx-auto text-center space-y-2">
+      <p class="text-[10px] sm:text-[11px] text-slate-400 leading-relaxed font-normal">
+        Este site não é afiliado ao Facebook ou a qualquer entidade do Meta Inc. Todos os conteúdos exibidos aqui são de responsabilidade exclusiva da empresa. As informações prestadas neste quiz têm caráter informativo e não substituem o diagnóstico médico profissional. Consulte sempre um médico ou especialista para avaliação de sintomas articulares.
+      </p>
+      <div class="flex justify-center gap-4 text-[10px] sm:text-[11px] text-slate-400 font-medium">
+        <a href="#termos" onclick="alert('Termos de Uso: Este site destina-se a fins informativos para conscientização sobre saúde articular.')" class="hover:underline">Termos de Uso</a>
+        <span>•</span>
+        <a href="#privacidade" onclick="alert('Política de Privacidade: Respeitamos a LGPD. Seus dados são protegidos e usados apenas para gerar a análise solicitada.')" class="hover:underline">Política de Privacidade</a>
+        <span>•</span>
+        <a href="#contato" onclick="alert('Contato: suporte@vittaflex.com.br')" class="hover:underline">Contato</a>
+      </div>
+      <p class="text-[10px] text-slate-400">© 2026 Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT DE LÓGICA DO QUIZ & INTEGRAÇÕES -->
+  <script>
+    // --- CONFIGURAÇÕES DE AMBIENTE E INTEGRAÇÃO ---
+    const CONFIG = {
+      PIXEL_ID: '1327910258914105',
+      CAPI_TOKEN: 'EAAkb8nWsZBwEBSL6hzcZA997LcZAhq5D238joKyOO3ZCPcm1zVqpum3e30jzIXNmr7uc2UwYpUnRuCapG4r4dZA57Qe7z2Lgu7RjVVZBndVJ1cVgIheOHOIRTlNmlLHpDc3x3W92PwnTtiRQxmOa0BXdhAq9TTtdP9t6FvSJbdkpTrNPzDu4NjQG3n5XHPEQZDZD',
+      SUPABASE_URL: 'https://welhsujbjxyzelaitzms.supabase.co',
+      SUPABASE_ANON_KEY: 'sb_publishable_XrLGIOICBd4i2AC1gNIQhw_Rq_-ovkJ',
+      WHATSAPP_NUMBER: '5531997858291' // Número de atendimento oficial VittaFlex
+    };
+
+    // --- HELPER SHA-256 VIA WEB CRYPTO API ---
+    async function sha256(message) {
+      if (!message) return undefined;
+      try {
+        const cleanStr = String(message).trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const msgBuffer = new TextEncoder().encode(cleanStr);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      } catch (e) {
+        return undefined;
+      }
+    }
+
+    // HELPER PARA LER COOKIES DA META (_fbp, _fbc)
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return undefined;
+    }
+
+    // --- CAPTURA DE PARÂMETROS DA URL & USER METADATA ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const userMetadata = {
+      fbclid: urlParams.get('fbclid') || '',
+      utm_source: urlParams.get('utm_source') || '',
+      utm_medium: urlParams.get('utm_medium') || '',
+      utm_campaign: urlParams.get('utm_campaign') || '',
+      source: urlParams.get('source') || document.referrer || 'direct',
+      user_agent: navigator.userAgent,
+      ip_address: ''
+    };
+
+    // Buscar IP do usuário silenciosamente
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => { userMetadata.ip_address = data.ip || ''; })
+      .catch(() => { userMetadata.ip_address = '0.0.0.0'; });
+
+    // --- ESTADO DO QUIZ ---
+    let currentStepIndex = 0;
+    const answers = {
+      sexo: '',
+      idade: '',
+      regiao_desconforto: [],
+      tempo_problema: '',
+      como_dor_aparece: '',
+      o_que_atrapalha: '',
+      intensidade_dor: '',
+      maior_preocupacao: '',
+      o_que_gostaria_recuperar: '',
+      ja_tentou: '',
+      nome: '',
+      whatsapp: '',
+      numero: ''
+    };
+
+    // --- ESTRUTURA DOS PASSO DO QUIZ ---
+    const steps = [
+      // 1. Q1 - Aquecimento
+      {
+        type: 'single',
+        key: 'sexo',
+        question: 'Qual seu sexo?',
+        options: ['Homem', 'Mulher']
+      },
+      // 2. Q2 - Aquecimento
+      {
+        type: 'single',
+        key: 'idade',
+        question: 'Qual sua idade?',
+        options: ['até 39', '40 a 49', '50 a 59', '60 a 69', 'acima de 70']
+      },
+      // 3. Q3 - Situação (SPIN) - Multi-select com Imagem de Ilustração
+      {
+        type: 'multi',
+        key: 'regiao_desconforto',
+        imageUrl: 'https://welhsujbjxyzelaitzms.supabase.co/storage/v1/object/public/midias/9.webp',
+        question: 'Em quais regiões você sente mais dor?',
+        subtitle: 'Pode selecionar mais de uma opção.',
+        options: ['Joelhos', 'Coluna', 'Ombros', 'Quadril', 'Mãos', 'Pés']
+      },
+      // 4. Q4 - Situação
+      {
+        type: 'single',
+        key: 'tempo_problema',
+        question: 'Há quanto tempo você sente esse problema?',
+        options: ['Menos de 1 mês', 'Entre 1 e 6 meses', 'Entre 6 meses e 2 anos', 'Mais de 2 anos']
+      },
+      // 5. Q5 - Situação
+      {
+        type: 'single',
+        key: 'como_dor_aparece',
+        question: 'Como essa dor costuma aparecer?',
+        options: ['Só quando faço esforço', 'Ao caminhar', 'Ao levantar', 'Quase todos os dias', 'Mesmo em repouso']
+      },
+      // 6. BLOCO 1 - Vídeo em Loop
+      {
+        type: 'info',
+        mediaScale: '70%',
+        videoUrl: 'https://welhsujbjxyzelaitzms.supabase.co/storage/v1/object/public/midias/knee%20aches%20GIF%20-%20Find%20%20Share%20on%20GIPHY.mp4',
+        contentHtml: `
+          Com o passar do tempo, <strong class="text-slate-900 font-semibold">toxinas e processos inflamatórios</strong> vão se acumulando nas articulações. Essas substâncias danificam a <strong class="text-slate-900 font-semibold">cartilagem</strong>, que é a camada que segura, protege e lubrifica os ossos.<br/><br/>
+          Quando a cartilagem enfraquece, os ossos começam a se esfregar uns contra os outros. Essa <strong class="text-slate-900 font-semibold">fricção</strong> é o que gera a <strong class="text-slate-900 font-semibold">dor, rigidez e desconforto</strong> que você sente.
+        `,
+        buttonText: "Entendi o motivo das minhas dores"
+      },
+      // 7. Q6 - Problema
+      {
+        type: 'single',
+        key: 'o_que_atrapalha',
+        question: 'O que essa dor mais atrapalha hoje?',
+        options: ['Caminhar', 'Dormir', 'Trabalhar', 'Brincar com filhos/netos', 'Fazer exercícios', 'Fazer tarefas simples']
+      },
+      // 8. Q7 - Problema
+      {
+        type: 'single',
+        key: 'intensidade_dor',
+        question: 'Em uma escala, como você classificaria essa dor?',
+        options: ['Leve', 'Moderada', 'Forte', 'Muito forte']
+      },
+      // 9. BLOCO 2 - Animação GIF
+      {
+        type: 'info',
+        mediaScale: '80%',
+        imageUrl: 'https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExazRocGdsdW00bzZiZ2JnMGlyNXJ2OW1reDJqZjczZTByYzg5aXBzcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jvakAAb85sXLjSBwWb/giphy.gif',
+        contentHtml: `
+          Quando a cartilagem perde a capacidade de amortecer e lubrificar os movimentos, o corpo começa a compensar de formas erradas.<br/><br/>
+          Isso causa <strong class="text-slate-900 font-semibold">rigidez ao levantar, estalos e dor crescente</strong>. Quanto mais tempo passa, <strong class="text-slate-900 font-semibold">maior o desgaste</strong> e mais difícil fica realizar atividades simples do dia a dia.
+        `,
+        buttonText: "É isso que eu sinto"
+      },
+      // 10. Q8 - Implicação (SPIN)
+      {
+        type: 'single',
+        key: 'maior_preocupacao',
+        question: 'Se essa situação continuar igual pelos próximos anos, qual é sua maior preocupação?',
+        options: [
+          'Precisar evitar atividades que gosto',
+          'Depender de outras pessoas',
+          'Conviver com dor todos os dias',
+          'Perder qualidade de vida',
+          'Não conseguir brincar com meus filhos/netos'
+        ]
+      },
+      // 11. BLOCO 3 - Informação com Destaque
+      {
+        type: 'info',
+        mediaScale: '70%',
+        imageUrl: 'https://welhsujbjxyzelaitzms.supabase.co/storage/v1/object/public/midias/image%20(1).jpg',
+        contentHtml: `
+          A boa notícia é que isso pode ser evitado de forma direta. Existem nutrientes específicos que atuam exatamente onde o problema acontece:<br/><br/>
+          A <strong class="text-slate-900 font-semibold">Condroitina, o Ácido Hialurônico, o MSM e a Curcumina</strong> ajudam a reconstruir a cartilagem danificada, enquanto o <strong class="text-slate-900 font-semibold">Colágeno Tipo II Não Desnaturado</strong> protege contra novo desgaste e restaura a lubrificação natural.
+        `,
+        buttonText: "Continuar"
+      },
+      // 12. Q9 - Necessidade (Need Payoff)
+      {
+        type: 'single',
+        key: 'o_que_gostaria_recuperar',
+        question: 'O que você mais gostaria de recuperar?',
+        options: [
+          'Caminhar sem desconforto',
+          'Dormir melhor',
+          'Ter mais disposição',
+          'Voltar a fazer exercícios',
+          'Conseguir subir escadas normalmente'
+        ]
+      },
+      // 13. Q10 - Necessidade
+      {
+        type: 'single',
+        key: 'ja_tentou',
+        question: 'Você já tentou alguma dessas alternativas?',
+        options: ['Pomadas', 'Anti-inflamatórios', 'Fisioterapia', 'Exercícios', 'Nada disso']
+      },
+      // 14. BLOCO 4 - Informação com Destaque
+      {
+        type: 'info',
+        imageUrl: 'https://welhsujbjxyzelaitzms.supabase.co/storage/v1/object/public/midias/image.jpg',
+        contentHtml: `
+          O <strong class="text-slate-900 font-semibold">VittaFlex</strong> é o único suplemento do mercado com essa combinação concentrada e completa: <strong class="text-slate-900 font-semibold">Colágeno Tipo II Não Desnaturado, Condroitina, Ácido Hialurônico, MSM, Curcumina, Magnésio e Zinco</strong>.<br/><br/>
+          Essa fórmula atua diretamente no mecanismo das dores articulares, <strong class="text-slate-900 font-semibold">reconstrói a cartilagem, protege contra novo desgaste, restaura a lubrificação e reduz a inflamação</strong>. É por isso que tantas pessoas estão obtendo resultados visíveis de alívio e mobilidade.
+        `,
+        buttonText: "Quero fazer o tratamento com VittaFlex"
+      },
+      // 15. Etapa Final - CTA & Lead Capture
+      {
+        type: 'lead_form',
+        question: 'Você quer conversar com a equipe do VittaFlex no WhatsApp para saber as opções de valores e formas de pagamento?',
+        subtitle: 'Preencha seus dados para liberar o acesso imediato à sua análise e atendimento.'
+      }
+    ];
+
+    // --- ELEMENTOS DO DOM ---
+    const quizContainer = document.getElementById('quizContainer');
+    const progressBar = document.getElementById('progressBar');
+    const stepCounterText = document.getElementById('stepCounterText');
+    const quizFooter = document.getElementById('quizFooter');
+
+    // --- INICIALIZAÇÃO DO APP ---
+    document.addEventListener('DOMContentLoaded', () => {
+      renderStep(currentStepIndex);
+      sendMetaPageViewCAPI();
+    });
+
+    // --- FUNÇÃO DE RENDERIZAÇÃO DE PASSO ---
+    function renderStep(index) {
+      const step = steps[index];
+      const totalSteps = steps.length;
+      
+      // Atualiza barra de progresso
+      const progressPercent = Math.round(((index + 1) / totalSteps) * 100);
+      progressBar.style.width = `${progressPercent}%`;
+      stepCounterText.textContent = `Passo ${index + 1} de ${totalSteps}`;
+
+      // Os Termos de Uso só ficam visíveis no primeiro passo (index 0)
+      if (quizFooter) {
+        if (index === 0) {
+          quizFooter.classList.remove('hidden');
+        } else {
+          quizFooter.classList.add('hidden');
+        }
+      }
+
+      // Blocos info com mídia e a etapa final (lead_form) ficam alinhados ao topo; perguntas ficam centralizadas
+      const mainEl = document.getElementById('mainContainer');
+      const wrapperEl = document.getElementById('quizWrapper');
+      if (step.type === 'lead_form' || (step.type === 'info' && (step.videoUrl || step.imageUrl))) {
+        mainEl.classList.remove('items-center');
+        mainEl.classList.add('items-start');
+        if (step.type === 'info' && !step.mediaScale) {
+          wrapperEl.classList.remove('max-w-lg');
+          wrapperEl.classList.add('max-w-xl');
+        } else {
+          wrapperEl.classList.remove('max-w-xl');
+          wrapperEl.classList.add('max-w-lg');
+        }
+      } else {
+        mainEl.classList.remove('items-start');
+        mainEl.classList.add('items-center');
+        wrapperEl.classList.remove('max-w-xl');
+        wrapperEl.classList.add('max-w-lg');
+      }
+
+      // Limpa outerHeader caso não seja o Passo 15
+      const outerHeader = document.getElementById('stepOuterHeader');
+      if (outerHeader && step.type !== 'lead_form') {
+        outerHeader.innerHTML = '';
+        outerHeader.classList.add('hidden');
+      }
+      quizContainer.classList.remove('step-active');
+      quizContainer.classList.add('step-enter');
+
+      setTimeout(() => {
+        let html = '';
+
+        if (step.type === 'single') {
+          html = `
+            <div>
+              ${step.imageUrl ? `
+                <div class="mb-4 flex justify-center">
+                  <img src="${step.imageUrl}" alt="Ilustração do Quiz" class="w-full h-auto max-w-[200px] rounded-2xl border border-slate-200/80 shadow-xs" />
+                </div>
+              ` : ''}
+              <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug mb-5">
+                ${step.question}
+              </h2>
+              <div class="space-y-3">
+                ${step.options.map(opt => `
+                  <button type="button" 
+                    onclick="handleSingleSelect('${step.key}', '${escapeQuotes(opt)}')"
+                    class="w-full text-left p-4 sm:p-5 rounded-xl border border-slate-200 bg-white hover:border-indigo-600 hover:bg-indigo-50/40 active:scale-[0.99] transition-all flex items-center justify-between group shadow-xs">
+                    <span class="font-medium text-slate-800 group-hover:text-indigo-950 text-base sm:text-lg">${opt}</span>
+                    <div class="w-6 h-6 rounded-full border border-slate-300 group-hover:border-indigo-600 group-hover:bg-indigo-600 flex items-center justify-center transition-all">
+                      <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-white"></i>
+                    </div>
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+            <div class="mt-5 text-center">
+              <p class="text-xs text-slate-400">Clique na opção para avançar automaticamente</p>
+            </div>
+          `;
+        } 
+        else if (step.type === 'multi') {
+          const selectedVals = answers[step.key] || [];
+          html = `
+            <div>
+              ${step.imageUrl ? `
+                <div class="mb-3 flex justify-center">
+                  <img src="${step.imageUrl}" alt="Regiões do Corpo" class="w-full h-auto max-w-[286px] rounded-2xl border border-slate-200/80 shadow-xs" />
+                </div>
+              ` : ''}
+              <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug mb-1">
+                ${step.question}
+              </h2>
+              <p class="text-sm text-slate-500 mb-4 font-medium">${step.subtitle}</p>
+              
+              <div id="multiOptionsGrid" class="grid grid-cols-2 gap-2.5">
+                ${step.options.map(opt => {
+                  const isChecked = selectedVals.includes(opt);
+                  return `
+                    <button type="button" 
+                      onclick="toggleMultiSelectOption('${opt}')"
+                      data-option="${escapeQuotes(opt)}"
+                      class="multi-opt-btn text-left p-3.5 rounded-xl border ${isChecked ? 'border-indigo-600 bg-indigo-50/60 ring-2 ring-indigo-500/20' : 'border-slate-200 bg-white hover:border-slate-300'} transition-all flex items-center justify-between shadow-xs">
+                      <span class="font-medium text-slate-800 text-sm sm:text-base">${opt}</span>
+                      <div class="checkbox-indicator w-5 h-5 rounded border ${isChecked ? 'bg-indigo-600 border-indigo-600' : 'border-slate-300'} flex items-center justify-center text-white">
+                        ${isChecked ? '<i data-lucide="check" class="w-3.5 h-3.5"></i>' : ''}
+                      </div>
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+            <div class="mt-5">
+              <button type="button" 
+                onclick="submitMultiSelect('${step.key}')"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl shadow-md hover:shadow-indigo-500/20 transition-all text-base sm:text-lg flex items-center justify-center gap-2">
+                <span>Avançar</span>
+                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+              </button>
+            </div>
+          `;
+        }
+        else if (step.type === 'info') {
+          const hasMedia = step.videoUrl || step.imageUrl;
+          const isScaled = !!step.mediaScale;
+          const mediaContainerClass = isScaled 
+            ? 'mb-4 flex justify-center w-full' 
+            : (hasMedia ? '-mt-5 sm:-mt-7 -mx-5 sm:-mx-7 mb-4' : 'mb-3');
+          const mediaElementClass = isScaled 
+            ? `w-[${step.mediaScale}] h-auto rounded-2xl border border-slate-200/80 shadow-xs` 
+            : `w-full h-auto ${hasMedia ? 'rounded-t-2xl' : 'rounded-2xl'} border-b border-slate-200/80`;
+
+          html = `
+            <div class="space-y-4">
+              ${step.videoUrl ? `
+                <div class="${mediaContainerClass}">
+                  <video autoplay loop muted playsinline class="${mediaElementClass}">
+                    <source src="${step.videoUrl}" type="video/mp4" />
+                  </video>
+                </div>
+              ` : ''}
+              ${step.imageUrl ? `
+                <div class="${mediaContainerClass}">
+                  <img src="${step.imageUrl}" alt="Animação Explicativa" class="${mediaElementClass}" />
+                </div>
+              ` : ''}
+              ${(!step.videoUrl && !step.imageUrl && step.icon) ? `
+                <div class="w-10 h-10 rounded-xl ${step.iconBg || 'bg-indigo-50 text-indigo-600'} flex items-center justify-center mb-2">
+                  <i data-lucide="${step.icon}" class="w-5 h-5"></i>
+                </div>
+              ` : ''}
+              <p class="text-slate-700 text-lg sm:text-xl font-normal leading-relaxed sm:leading-9 px-1">
+                ${step.contentHtml}
+              </p>
+            </div>
+
+            <div class="mt-7">
+              <button type="button" 
+                onclick="nextStep()"
+                class="w-full bg-green-500 hover:bg-green-600 active:scale-[0.99] text-white font-extrabold py-4 px-6 rounded-xl shadow-lg shadow-green-500/25 text-base sm:text-lg transition-all animate-pulse-subtle flex items-center justify-center gap-2">
+                <span>${step.buttonText}</span>
+                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+              </button>
+            </div>
+          `;
+        }
+        else if (step.type === 'lead_form') {
+          // Renderiza headline e subtítulo FORA do bloco card com Safezone ideal
+          const outerHeader = document.getElementById('stepOuterHeader');
+          if (outerHeader) {
+            outerHeader.innerHTML = `
+              <h2 class="text-lg sm:text-xl font-bold text-slate-900 leading-snug tracking-tight mb-2.5 max-w-md sm:max-w-lg mx-auto">
+                ${step.question}
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed max-w-sm sm:max-w-md mx-auto">${step.subtitle}</p>
+            `;
+            outerHeader.classList.remove('hidden');
+          }
+
+          html = `
+            <div>
+              <form id="leadForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Seu Nome Completo</label>
+                  <div class="relative">
+                    <input type="text" id="inputNome" required placeholder="Digite seu nome..." 
+                      class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 text-base font-medium outline-none transition-all placeholder:text-slate-400" />
+                    <div class="absolute left-3.5 top-3.5 text-slate-400">
+                      <i data-lucide="user" class="w-5 h-5"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Seu WhatsApp (com DDD)</label>
+                  <div class="relative">
+                    <input type="tel" id="inputWhatsApp" required placeholder="(31) 99785-8291" maxlength="15" 
+                      oninput="applyPhoneMask(this)"
+                      class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 text-base font-medium outline-none transition-all placeholder:text-slate-400" />
+                    <div class="absolute left-3.5 top-3.5 text-slate-400">
+                      <i data-lucide="phone" class="w-5 h-5"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="formErrorMessage" class="hidden text-red-600 text-xs font-semibold p-3 bg-red-50 rounded-lg border border-red-200"></div>
+
+                <div class="pt-2">
+                  <button type="submit" id="btnSubmitLead"
+                    class="w-full bg-green-500 hover:bg-green-600 active:scale-[0.99] text-white font-extrabold py-4 px-6 rounded-xl shadow-lg shadow-green-500/30 text-base sm:text-lg transition-all animate-pulse-subtle flex items-center justify-center gap-2.5">
+                    <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12.031 0C5.396 0 .02 5.376.02 12.012c0 2.117.55 4.184 1.597 6.002L0 24l6.135-1.609a11.95 11.95 0 005.895 1.547h.005c6.634 0 12.01-5.376 12.01-12.014A11.942 11.942 0 0012.031 0zm0 21.936h-.004a9.927 9.927 0 01-5.064-1.393l-.363-.216-3.762.986 1.003-3.667-.236-.376a9.943 9.943 0 01-1.527-5.258c0-5.485 4.463-9.948 9.953-9.948 2.658 0 5.157 1.036 7.035 2.915 1.879 1.88 2.912 4.38 2.91 7.04-.002 5.487-4.464 9.95-9.949 9.95zm5.454-7.447c-.299-.15-1.767-.872-2.04-.972-.274-.099-.474-.15-.674.15-.2.298-.773.972-.948 1.171-.175.198-.349.224-.648.075-.299-.149-1.264-.465-2.408-1.485-.89-.794-1.49-1.775-1.665-2.073-.175-.298-.019-.46.13-.608.134-.134.299-.348.449-.523.149-.174.199-.298.299-.497.099-.199.05-.373-.025-.523-.075-.149-.672-1.619-.922-2.217-.242-.579-.487-.501-.669-.51l-.571-.009c-.199 0-.523.074-.797.373s-1.046 1.02-1.046 2.487 1.07 2.887 1.22 3.086c.149.198 2.106 3.215 5.103 4.51.713.308 1.27.492 1.704.63.715.228 1.366.195 1.88.118.574-.086 1.767-.722 2.016-1.419.249-.697.249-1.295.174-1.419-.074-.124-.274-.199-.573-.348z"/>
+                    </svg>
+                    <span>Conversar no WhatsApp Agora</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="mt-4 text-center">
+              <p class="text-[11px] text-slate-400 flex items-center justify-center gap-1">
+                <i data-lucide="lock" class="w-3.5 h-3.5"></i> Seus dados estão 100% protegidos e seguros.
+              </p>
+            </div>
+          `;
+        }
+
+        quizContainer.innerHTML = html;
+        lucide.createIcons();
+
+        quizContainer.classList.remove('step-enter');
+        quizContainer.classList.add('step-active');
+      }, 120);
+    }
+
+    // --- MÁSCARA AUTOMÁTICA DE TELEFONE (WHATSAPP) ---
+    function applyPhoneMask(input) {
+      let v = input.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.substring(0, 11);
+      if (v.length > 10) {
+        input.value = `(${v.substring(0,2)}) ${v.substring(2,7)}-${v.substring(7)}`;
+      } else if (v.length > 6) {
+        input.value = `(${v.substring(0,2)}) ${v.substring(2,6)}-${v.substring(6)}`;
+      } else if (v.length > 2) {
+        input.value = `(${v.substring(0,2)}) ${v.substring(2)}`;
+      } else if (v.length > 0) {
+        input.value = `(${v}`;
+      } else {
+        input.value = '';
+      }
+    }
+
+    // --- HANDLERS DE RESPOSTAS ---
+    function handleSingleSelect(key, value) {
+      answers[key] = value;
+      saveProgressToLocal();
+      nextStep();
+    }
+
+    function toggleMultiSelectOption(option) {
+      const currentOptList = answers.regiao_desconforto || [];
+      const idx = currentOptList.indexOf(option);
+      if (idx > -1) {
+        currentOptList.splice(idx, 1);
+      } else {
+        currentOptList.push(option);
+      }
+      answers.regiao_desconforto = currentOptList;
+      
+      // Atualiza estado dos botões visualmente
+      const grid = document.getElementById('multiOptionsGrid');
+      if (grid) {
+        const btns = grid.querySelectorAll('.multi-opt-btn');
+        btns.forEach(btn => {
+          const optName = btn.getAttribute('data-option');
+          const isChecked = currentOptList.includes(optName);
+          btn.className = `multi-opt-btn text-left p-3.5 rounded-xl border ${isChecked ? 'border-indigo-600 bg-indigo-50/60 ring-2 ring-indigo-500/20' : 'border-slate-200 bg-white hover:border-slate-300'} transition-all flex items-center justify-between shadow-xs`;
+          const indicator = btn.querySelector('.checkbox-indicator');
+          if (indicator) {
+            indicator.className = `checkbox-indicator w-5 h-5 rounded border ${isChecked ? 'bg-indigo-600 border-indigo-600' : 'border-slate-300'} flex items-center justify-center text-white`;
+            indicator.innerHTML = isChecked ? '<i data-lucide="check" class="w-3.5 h-3.5"></i>' : '';
+          }
+        });
+        lucide.createIcons();
+      }
+    }
+
+    function submitMultiSelect(key) {
+      if (!answers[key] || answers[key].length === 0) {
+        alert('Por favor, selecione pelo menos uma opção para continuar.');
+        return;
+      }
+      saveProgressToLocal();
+      nextStep();
+    }
+
+    function nextStep() {
+      // Quando for o botão do Passo 14 (index 13), dispara a animação de análise clínica antes do Passo 15
+      if (currentStepIndex === 13) {
+        triggerAnalysisLoading();
+        return;
+      }
+      if (currentStepIndex < steps.length - 1) {
+        currentStepIndex++;
+        renderStep(currentStepIndex);
+      }
+    }
+
+    // --- TELA INTERMEDIÁRIA DE CARREGAMENTO / ANÁLISE CLÍNICA ---
+    function triggerAnalysisLoading() {
+      progressBar.style.width = '95%';
+      stepCounterText.textContent = 'Gerando Análise...';
+      if (quizFooter) quizFooter.classList.add('hidden');
+
+      const mainEl = document.getElementById('mainContainer');
+      const wrapperEl = document.getElementById('quizWrapper');
+      mainEl.classList.remove('items-start');
+      mainEl.classList.add('items-center');
+      wrapperEl.classList.remove('max-w-xl');
+      wrapperEl.classList.add('max-w-lg');
+
+      quizContainer.innerHTML = `
+        <div class="py-8 px-2 text-center space-y-6 flex flex-col items-center justify-center my-auto">
+          <div class="relative w-16 h-16 flex items-center justify-center">
+            <div class="absolute inset-0 rounded-full border-4 border-indigo-100"></div>
+            <div class="absolute inset-0 rounded-full border-4 border-indigo-600 border-t-transparent animate-spin"></div>
+            <i data-lucide="activity" class="w-7 h-7 text-indigo-600"></i>
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-xl font-bold text-slate-900">Analisando suas respostas...</h3>
+            <p id="analysisStatusText" class="text-sm text-slate-500 font-medium transition-all duration-300">
+              Cruzando dados do seu perfil articular com a literatura médica...
+            </p>
+          </div>
+          <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden max-w-xs shadow-inner">
+            <div id="analysisInnerBar" class="bg-indigo-600 h-full w-[20%] transition-all duration-700 ease-out"></div>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+
+      const statusText = document.getElementById('analysisStatusText');
+      const innerBar = document.getElementById('analysisInnerBar');
+
+      setTimeout(() => {
+        if (statusText) statusText.textContent = 'Verificando a combinação ideal de ativos reconstrutores...';
+        if (innerBar) innerBar.style.width = '65%';
+      }, 900);
+
+      setTimeout(() => {
+        if (statusText) statusText.textContent = 'Análise concluída com sucesso! Liberando seu atendimento...';
+        if (innerBar) innerBar.style.width = '100%';
+      }, 1900);
+
+      setTimeout(() => {
+        currentStepIndex = 14;
+        renderStep(currentStepIndex);
+      }, 2500);
+    }
+
+    function saveProgressToLocal() {
+      try {
+        localStorage.setItem('vittaflex_quiz_data', JSON.stringify(answers));
+      } catch(e) {
+        console.warn('LocalStorage inacessível:', e);
+      }
+    }
+
+    function escapeQuotes(str) {
+      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    // --- SUBMISSÃO FINAL DO LEAD, PIXEL, CAPI E SUPABASE ---
+    async function handleFormSubmit(event) {
+      event.preventDefault();
+      
+      const nomeInput = document.getElementById('inputNome');
+      const whatsappInput = document.getElementById('inputWhatsApp');
+      const btnSubmit = document.getElementById('btnSubmitLead');
+      const errorMsg = document.getElementById('formErrorMessage');
+
+      const nome = nomeInput.value.trim();
+      const rawPhone = whatsappInput.value.replace(/\D/g, '');
+
+      if (!nome || nome.length < 2) {
+        errorMsg.textContent = 'Por favor, insira seu nome completo.';
+        errorMsg.classList.remove('hidden');
+        return;
+      }
+
+      if (rawPhone.length < 10) {
+        errorMsg.textContent = 'Por favor, insira um número de WhatsApp válido com DDD.';
+        errorMsg.classList.remove('hidden');
+        return;
+      }
+
+      errorMsg.classList.add('hidden');
+
+      // Atualiza dados finais
+      answers.nome = nome;
+      answers.whatsapp = whatsappInput.value;
+      answers.numero = rawPhone;
+
+      // Estado de loading visual no botão
+      btnSubmit.disabled = true;
+      btnSubmit.innerHTML = `
+        <div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+        <span>Redirecionando para o WhatsApp...</span>
+      `;
+
+      // DISPARAR META EVENTOS E SUPABASE EM SEGUNDO PLANO
+      sendEnrichedMetaEvents(answers);
+      sendSupabaseData(answers);
+      saveProgressToLocal();
+
+      // MENSAGEM PERSONALIZADA DE MICROCOMPROMISSO
+      const regioes = Array.isArray(answers.regiao_desconforto) ? answers.regiao_desconforto.join(', ') : (answers.regiao_desconforto || 'Articulações');
+      const whatsappMsg = encodeURIComponent(
+        `Olá! Meu nome é ${answers.nome}. Fiz a análise de saúde articular no site e confirmo meu interesse em conhecer a solução VittaFlex para minhas dores em ${regioes}. Gostaria de receber a recomendação e consultar as opções de valores.`
+      );
+
+      const whatsappUrl = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${whatsappMsg}`;
+
+      // Redirecionamento direto para o WhatsApp do número 31 997858291
+      setTimeout(() => {
+        window.location.href = whatsappUrl;
+      }, 350);
+    }
+
+    // --- TRACKING PAGEVIEW VIA META PIXEL & META CAPI SERVER-SIDE ---
+    async function sendMetaPageViewCAPI() {
+      const eventTime = Math.floor(Date.now() / 1000);
+      const eventID = `pv_${Date.now()}_${Math.floor(Math.random() * 1000000)}`;
+
+      const fbcCookie = getCookie('_fbc') || (userMetadata.fbclid ? `fb.1.${eventTime}.${userMetadata.fbclid}` : undefined);
+      const fbpCookie = getCookie('_fbp') || `fb.1.${eventTime}.${Math.floor(Math.random() * 10000000000)}`;
+
+      // 1. Pixel Client-side PageView com EventID para deduplicação
+      try {
+        if (typeof fbq === 'function') {
+          fbq('track', 'PageView', {}, { eventID: eventID });
+        }
+      } catch (e) {
+        console.warn('Meta Pixel PageView warning:', e);
+      }
+
+      // 2. Conversions API Server-side (CAPI Graph API POST)
+      try {
+        const payload = {
+          data: [{
+            event_name: 'PageView',
+            event_time: eventTime,
+            event_id: eventID,
+            action_source: 'website',
+            event_source_url: window.location.href,
+            user_data: {
+              client_ip_address: userMetadata.ip_address || undefined,
+              client_user_agent: userMetadata.user_agent || undefined,
+              fbc: fbcCookie,
+              fbp: fbpCookie
+            }
+          }]
+        };
+
+        const capiUrl = `https://graph.facebook.com/v19.0/${CONFIG.PIXEL_ID}/events?access_token=${CONFIG.CAPI_TOKEN}`;
+        await fetch(capiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.warn('Meta CAPI PageView warning:', err);
+      }
+    }
+
+    // --- ENVIO ENRIQUECIDO META PIXEL + META CAPI (EVENTO LEAD) ---
+    async function sendEnrichedMetaEvents(data) {
+      const eventTime = Math.floor(Date.now() / 1000);
+      const eventID = `lead_${Date.now()}_${Math.floor(Math.random() * 1000000)}`;
+
+      // Normaliza Nome e Sobrenome
+      const fullName = (data.nome || '').trim();
+      const nameParts = fullName.split(' ').filter(Boolean);
+      const firstName = nameParts[0] || '';
+      const lastName = nameParts.slice(1).join(' ') || '';
+
+      // Normaliza Telefone com DDI 55
+      let cleanPhone = (data.numero || '').replace(/\D/g, '');
+      if (cleanPhone.length > 0 && !cleanPhone.startsWith('55')) {
+        cleanPhone = '55' + cleanPhone;
+      }
+
+      // Mapeia Gênero (m / f)
+      const genderCode = (data.sexo === 'Homem') ? 'm' : ((data.sexo === 'Mulher') ? 'f' : '');
+
+      // Hashing SHA-256 de todas as PIIs suportadas pela Meta
+      const [hashedPhone, hashedFn, hashedLn, hashedGender, hashedCountry, hashedExternalId] = await Promise.all([
+        sha256(cleanPhone),
+        sha256(firstName),
+        sha256(lastName),
+        sha256(genderCode),
+        sha256('br'),
+        sha256(cleanPhone || fullName)
+      ]);
+
+      // Recupera Cookies Nativos da Meta (_fbc e _fbp)
+      const fbcCookie = getCookie('_fbc') || (userMetadata.fbclid ? `fb.1.${eventTime}.${userMetadata.fbclid}` : undefined);
+      const fbpCookie = getCookie('_fbp') || `fb.1.${eventTime}.${Math.floor(Math.random() * 10000000000)}`;
+
+      // Objeto de Dados do Usuário
+      const userDataPayload = {
+        ph: hashedPhone ? [hashedPhone] : undefined,
+        fn: hashedFn ? [hashedFn] : undefined,
+        ln: hashedLn ? [hashedLn] : undefined,
+        ge: hashedGender ? [hashedGender] : undefined,
+        country: [hashedCountry],
+        external_id: [hashedExternalId],
+        client_ip_address: userMetadata.ip_address || undefined,
+        client_user_agent: userMetadata.user_agent || undefined,
+        fbc: fbcCookie,
+        fbp: fbpCookie
+      };
+
+      // Dados Personalizados do Evento
+      const customDataPayload = {
+        content_name: 'VittaFlex Quiz Lead',
+        content_category: 'Saúde Articular',
+        value: 1.00,
+        currency: 'BRL',
+        sexo: data.sexo,
+        idade: data.idade,
+        regiao_desconforto: Array.isArray(data.regiao_desconforto) ? data.regiao_desconforto.join(', ') : data.regiao_desconforto,
+        tempo_problema: data.tempo_problema,
+        intensidade_dor: data.intensidade_dor,
+        utm_source: userMetadata.utm_source,
+        utm_medium: userMetadata.utm_medium,
+        utm_campaign: userMetadata.utm_campaign
+      };
+
+      // 1. ADVANCED MATCHING CLIENT-SIDE (META PIXEL)
+      try {
+        if (typeof fbq === 'function') {
+          fbq('init', CONFIG.PIXEL_ID, {
+            ph: hashedPhone,
+            fn: hashedFn,
+            ln: hashedLn,
+            ge: hashedGender
+          });
+
+          fbq('track', 'Lead', customDataPayload, { eventID: eventID });
+        }
+      } catch (e) {
+        console.warn('Meta Pixel dispatch warning:', e);
+      }
+
+      // 2. CONVERSIONS API SERVER-SIDE (META CAPI VIA GRAPH API POST)
+      try {
+        const payload = {
+          data: [{
+            event_name: 'Lead',
+            event_time: eventTime,
+            event_id: eventID,
+            action_source: 'website',
+            event_source_url: window.location.href,
+            user_data: userDataPayload,
+            custom_data: customDataPayload
+          }]
+        };
+
+        const capiUrl = `https://graph.facebook.com/v19.0/${CONFIG.PIXEL_ID}/events?access_token=${CONFIG.CAPI_TOKEN}`;
+        await fetch(capiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.warn('Meta CAPI dispatch warning:', err);
+      }
+    }
+
+    // --- ENVIO DE DADOS PARA O SUPABASE (TABELA quiz_respostas) ---
+    async function sendSupabaseData(data) {
+      const regiaoString = Array.isArray(data.regiao_desconforto) 
+        ? data.regiao_desconforto.join(', ') 
+        : (data.regiao_desconforto || '');
+
+      const dbPayload = {
+        nome: data.nome,
+        numero: data.numero,
+        whatsapp: data.whatsapp,
+        fbclid: userMetadata.fbclid,
+        sexo: data.sexo,
+        idade: data.idade,
+        regiao_desconforto: regiaoString,
+        tempo_problema: data.tempo_problema,
+        como_dor_aparece: data.como_dor_aparece,
+        o_que_atrapalha: data.o_que_atrapalha,
+        intensidade_dor: data.intensidade_dor,
+        maior_preocupacao: data.maior_preocupacao,
+        o_que_gostaria_recuperar: data.o_que_gostaria_recuperar,
+        ja_tentou: data.ja_tentou,
+        respostas_completas: data,
+        ip_address: userMetadata.ip_address,
+        user_agent: userMetadata.user_agent,
+        source: userMetadata.source,
+        utm_source: userMetadata.utm_source,
+        utm_medium: userMetadata.utm_medium,
+        utm_campaign: userMetadata.utm_campaign
+      };
+
+      try {
+        const response = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/quiz_respostas`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': CONFIG.SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(dbPayload)
+        });
+
+        if (!response.ok) {
+          console.error('Falha ao salvar no Supabase status:', response.status);
+        }
+      } catch(err) {
+        console.error('Erro de rede ao salvar no Supabase:', err);
+      }
+    }
+
+    // --- TELA FINAL: SUA ANÁLISE ESTÁ PRONTA ---
+    function renderFinalSuccessPage() {
+      progressBar.style.width = '100%';
+      stepCounterText.textContent = 'Análise Concluída 100%';
+      if (quizFooter) quizFooter.classList.add('hidden');
+
+      const regioes = Array.isArray(answers.regiao_desconforto) ? answers.regiao_desconforto.join(', ') : (answers.regiao_desconforto || 'Articulações');
+      
+      const whatsappMsg = encodeURIComponent(
+        `Olá equipe VittaFlex! Meu nome é ${answers.nome}. Fiz o teste de saúde articular no site e minha análise apontou dores em (${regioes}) com intensidade ${answers.intensidade_dor || 'moderada/forte'}. Gostaria de conhecer as opções e valores do tratamento!`
+      );
+
+      const whatsappLink = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${whatsappMsg}`;
+
+      quizContainer.innerHTML = `
+        <div class="text-center py-2 space-y-4">
+          <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
+            <i data-lucide="check-circle-2" class="w-10 h-10"></i>
+          </div>
+
+          <span class="inline-block text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-200">
+            Relatório Gerado Com Sucesso
+          </span>
+
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Sua Análise Personalizada está Pronta!
+          </h2>
+
+          <p class="text-slate-600 text-sm sm:text-base max-w-md mx-auto">
+            Olá, <strong class="text-slate-900">${answers.nome}</strong>! Com base nas suas respostas, identificamos que o desgaste nas regiões (<span class="text-indigo-600 font-semibold">${regioes}</span>) exige ação focada nos nutrientes reconstrutores.
+          </p>
+
+          <!-- CARD DE RESUMO -->
+          <div class="bg-indigo-50/70 p-4 sm:p-5 rounded-xl border border-indigo-100 text-left text-xs sm:text-sm space-y-2 my-4">
+            <div class="flex justify-between border-b border-indigo-100 pb-1.5">
+              <span class="text-slate-500">Regiões Afetadas:</span>
+              <span class="font-bold text-slate-800">${regioes}</span>
+            </div>
+            <div class="flex justify-between border-b border-indigo-100 pb-1.5">
+              <span class="text-slate-500">Tempo do Problema:</span>
+              <span class="font-bold text-slate-800">${answers.tempo_problema || 'N/I'}</span>
+            </div>
+            <div class="flex justify-between border-b border-indigo-100 pb-1.5">
+              <span class="text-slate-500">Nível da Dor:</span>
+              <span class="font-bold text-red-600">${answers.intensidade_dor || 'Forte'}</span>
+            </div>
+            <div class="flex justify-between pt-0.5">
+              <span class="text-slate-500">Recomendação:</span>
+              <span class="font-bold text-emerald-700">Tratamento Sinérgico VittaFlex</span>
+            </div>
+          </div>
+
+          <div class="pt-2 space-y-3">
+            <a href="${whatsappLink}" target="_blank" rel="noopener noreferrer"
+              class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-extrabold py-4 px-6 rounded-xl shadow-xl shadow-emerald-600/30 text-lg transition-all animate-pulse-subtle flex items-center justify-center gap-3">
+              <i data-lucide="message-circle" class="w-6 h-6"></i>
+              <span>Falar no WhatsApp Agora</span>
+            </a>
+            
+            <p class="text-xs text-slate-400">
+              Clique no botão acima para abrir o WhatsApp oficial da VittaFlex com suas respostas pré-carregadas.
+            </p>
+          </div>
+        </div>
+      `;
+
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
